@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Новости" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.omoemurao.android_vk_cup.news.view.NewsStackLayout
+        android:id="@+id/tsl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_hide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+    <Button
+        android:id="@+id/btn_hide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_hide"
+        app:layout_constraintEnd_toStartOf="@id/btn_like"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tsl" />
+
+    <Button
+        android:id="@+id/btn_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_like"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_hide"
+        app:layout_constraintTop_toBottomOf="@id/tsl" />
+
+    <TextView
+        android:id="@+id/tw_hide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hide"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btn_hide"
+        app:layout_constraintStart_toStartOf="@id/btn_hide"
+        app:layout_constraintTop_toBottomOf="@id/btn_hide" />
+
+    <TextView
+        android:id="@+id/tw_like"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="like"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btn_like"
+        app:layout_constraintStart_toStartOf="@id/btn_like"
+        app:layout_constraintTop_toBottomOf="@id/btn_like" />
+</androidx.constraintlayout.widget.ConstraintLayout>

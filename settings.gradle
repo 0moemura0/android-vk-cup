@@ -1,0 +1,2 @@
+rootProject.name = "android-vk-cup"
+include ':app'
