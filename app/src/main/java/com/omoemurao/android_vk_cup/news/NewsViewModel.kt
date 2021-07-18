@@ -24,9 +24,9 @@ class NewsViewModel : ViewModel() {
                 nextStart.postValue(it.nextFrom!!)
                 list(it)
             }, {
-Log.d("NewsViewModel", it.cause.toString())
-Log.d("NewsViewModel", it.message.toString())
-Log.d("NewsViewModel", it.stackTrace.toString())
+                Log.d("NewsViewModel", it.cause.toString())
+                Log.d("NewsViewModel", it.message.toString())
+                Log.d("NewsViewModel", it.stackTrace.toString())
             })
     }
 }

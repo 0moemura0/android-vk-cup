@@ -3,12 +3,14 @@
     <item
         android:width="88dp"
         android:height="88dp"
-        android:drawable="@drawable/ic_curcle" />
+        android:drawable="@drawable/ic_curcle">
+    </item>
     <item
         android:bottom="22dp"
         android:drawable="@drawable/ic_hide"
         android:end="22dp"
         android:gravity="center"
         android:start="22dp"
-        android:top="22dp" />
+        android:top="22dp">
+    </item>
 </layer-list>

@@ -22,7 +22,6 @@ import com.squareup.picasso.Picasso
 class NewsCardView : FrameLayout, View.OnTouchListener {
     companion object {
         private const val CARD_ROTATION_DEGREES = 40.0f
-        private const val BADGE_ROTATION_DEGREES = 15.0f
         private const val DURATION = 300
 
     }
@@ -89,7 +88,8 @@ class NewsCardView : FrameLayout, View.OnTouchListener {
                     view.setX(view.getX() + dX)
                     view.setY(view.getY() + dY)
                     setCardRotation(view, view.getX())
-                    updateAlphaOfBadges(posX)
+                    val alpha  = (posX - padding) / (screenWidth * 0.50f)
+                    newsStackLayout.setAlphaBtn(alpha)
                     true
                 }
                 else -> super.onTouchEvent(motionEvent)
@@ -136,8 +136,8 @@ class NewsCardView : FrameLayout, View.OnTouchListener {
             .y(0f)
             .rotation(0f)
             .setInterpolator(OvershootInterpolator()).duration = DURATION.toLong()
-        //likeTextView!!.alpha = 0f
-        //nopeTextView!!.alpha = 0f
+        val layout = view.parent as NewsStackLayout
+        layout.setAlphaBtn(0.0f)
     }
 
     private fun setCardRotation(view: View, posX: Float) {
@@ -150,12 +150,9 @@ class NewsCardView : FrameLayout, View.OnTouchListener {
         }
     }
 
-    // set alpha of like and nope badges
     private fun updateAlphaOfBadges(posX: Float) {
         val alpha = (posX - padding) / (screenWidth * 0.50f)
-        //TODO вот тут листенер для увеличения кнопок
-        //likeTextView!!.alpha = alpha
-        //nopeTextView!!.alpha = -alpha
+
     }
 
     fun bind(news: BaseCardInfo?) {
@@ -185,19 +182,15 @@ class NewsCardView : FrameLayout, View.OnTouchListener {
 
         nameCreator?.text = card.creator.getName().toString()
 
-        timeCreator?.text = card.date.toString()
+        timeCreator?.text = card.date
 
         textPost?.text = card.title.toString()
         countLike?.text = card.countLike.toString()
         countComment?.text = card.countComment.toString()
 
-        //likeTextView = findViewById<View>(R.id.like_tv) as TextView
-        //nopeTextView = findViewById<View>(R.id.nope_tv) as TextView
-        //likeTextView!!.rotation = -BADGE_ROTATION_DEGREES
-        //nopeTextView!!.rotation = BADGE_ROTATION_DEGREES
         screenWidth = DisplayUtility.getScreenWidth(context)
-        leftBoundary = screenWidth * (1.0f / 6.0f) // Left 1/6 of screen
-        rightBoundary = screenWidth * (5.0f / 6.0f) // Right 1/6 of screen
+        leftBoundary = screenWidth * (1.0f / 6.0f)
+        rightBoundary = screenWidth * (5.0f / 6.0f)
         padding = DisplayUtility.dp2px(context, 16)
         setOnTouchListener(this)
 
@@ -220,19 +213,15 @@ class NewsCardView : FrameLayout, View.OnTouchListener {
 
         nameCreator?.text = card.creator.getName().toString()
 
-        timeCreator?.text = card.date.toString()
+        timeCreator?.text = card.date
 
         textPost?.text = card.title.toString()
         countLike?.text = card.countLike.toString()
         countComment?.text = card.countComment.toString()
 
-        //likeTextView = findViewById<View>(R.id.like_tv) as TextView
-        //nopeTextView = findViewById<View>(R.id.nope_tv) as TextView
-        //likeTextView!!.rotation = -BADGE_ROTATION_DEGREES
-        //nopeTextView!!.rotation = BADGE_ROTATION_DEGREES
         screenWidth = DisplayUtility.getScreenWidth(context)
-        leftBoundary = screenWidth * (1.0f / 6.0f) // Left 1/6 of screen
-        rightBoundary = screenWidth * (5.0f / 6.0f) // Right 1/6 of screen
+        leftBoundary = screenWidth * (1.0f / 6.0f)
+        rightBoundary = screenWidth * (5.0f / 6.0f)
         padding = DisplayUtility.dp2px(context, 16)
         setOnTouchListener(this)
     }
@@ -250,19 +239,16 @@ class NewsCardView : FrameLayout, View.OnTouchListener {
         Picasso.get().load(card.creator.getUrl()).into(imageCreator)
         nameCreator?.text = card.creator.getName().toString()
 
-        timeCreator?.text = card.date.toString()
+        timeCreator?.text = card.date
 
         textPost?.text = card.title.toString()
         countLike?.text = card.countLike.toString()
         countComment?.text = card.countComment.toString()
 
-        //likeTextView = findViewById<View>(R.id.like_tv) as TextView
-        //nopeTextView = findViewById<View>(R.id.nope_tv) as TextView
-        //likeTextView!!.rotation = -BADGE_ROTATION_DEGREES
-        //nopeTextView!!.rotation = BADGE_ROTATION_DEGREES
+
         screenWidth = DisplayUtility.getScreenWidth(context)
-        leftBoundary = screenWidth * (1.0f / 6.0f) // Left 1/6 of screen
-        rightBoundary = screenWidth * (5.0f / 6.0f) // Right 1/6 of screen
+        leftBoundary = screenWidth * (1.0f / 6.0f)
+        rightBoundary = screenWidth * (5.0f / 6.0f)
         padding = DisplayUtility.dp2px(context, 16)
         setOnTouchListener(this)
     }

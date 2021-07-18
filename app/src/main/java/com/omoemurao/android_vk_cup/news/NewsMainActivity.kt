@@ -3,6 +3,7 @@ package com.omoemurao.android_vk_cup.news
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.omoemurao.android_vk_cup.R
@@ -59,7 +60,7 @@ class NewsMainActivity : AppCompatActivity() {
         }
 
 
-        newsStackLayout!!.getPublishSubject()
+        newsStackLayout!!.publishSubject
             ?.observeOn(AndroidSchedulers.mainThread()) // UI Thread
             ?.subscribe(object : Subscriber<Int?>() {
                 override fun onCompleted() {}
@@ -80,6 +81,7 @@ class NewsMainActivity : AppCompatActivity() {
                     }
                 }
             })
+
 
     }
 
@@ -127,7 +129,7 @@ class NewsMainActivity : AppCompatActivity() {
                         creator!!)
                     res.countLike = post.likes?.count ?: 0
                     res.countComment = post.comments?.count ?: 0
-                    return  res
+                    return res
                 }
             }
             is NewsfeedNewsfeedItem.NewsfeedItemPhoto -> {
@@ -157,51 +159,6 @@ class NewsMainActivity : AppCompatActivity() {
                     creator,
                     post.photos?.items?.get(0)?.images?.get(0)?.url)
             }
-
-/*           is NewsfeedNewsfeedItem.NewsfeedItemPhotoTag -> {
-               type ="photo_tag"
-               isProfile = post.sourceId!! > 0
-           }
-           iNewsfeedNewsfeedItem.NewsfeedItemFriend -> {
-               type ="friend"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemTopic -> {
-               type ="topic"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemDigest -> {
-               type ="digest"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemPromoButton -> {
-               type ="promo_button"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemFeedbackPoll -> {
-               type ="feedback_poll"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemAnimatedBlock -> {
-               type ="animated_block"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemRecommendedGroupsBlock -> {
-               type ="recommended_groups"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemRecognizeBlock -> {
-               type ="tags_suggestions"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemGamesCarousel -> {
-               type ="games_carousel"
-               isProfile = post.sourceId!! > 0
-           }
-           is NewsfeedNewsfeedItem.NewsfeedItemTextliveBlock -> {
-               type ="textlive"
-               isProfile = post.sourceId!! > 0
-           }*/
             else -> return null
         }
         return null
@@ -225,9 +182,9 @@ class NewsMainActivity : AppCompatActivity() {
                 del <= 14_400_000 -> {
                     "три часа назад"
                 }
-                else -> "сегодня в ${res.hours} : ${res.minutes} "
+                else -> "сегодня в ${res.hours}:${res.minutes} "
             }
-        } else{
+        } else {
             "только что"
         }
     }

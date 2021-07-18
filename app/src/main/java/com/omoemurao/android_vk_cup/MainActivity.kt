@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.omoemurao.android_vk_cup.news.NewsMainActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -30,15 +31,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_taxi -> {
+                Toast.makeText(this, "Не сделано", Toast.LENGTH_SHORT).show()
             }
             R.id.btn_news -> {
                 startActivity(Intent(this, NewsMainActivity::class.java))
             }
             R.id.btn_video -> {
+                Toast.makeText(this, "Не сделано", Toast.LENGTH_SHORT).show()
             }
             R.id.btn_voice -> {
+                Toast.makeText(this, "Не сделано", Toast.LENGTH_SHORT).show()
             }
             R.id.btn_xo -> {
+                Toast.makeText(this, "Не сделано", Toast.LENGTH_SHORT).show()
             }
         }
     }

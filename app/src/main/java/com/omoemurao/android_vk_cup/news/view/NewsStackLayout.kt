@@ -24,11 +24,11 @@ class NewsStackLayout : FrameLayout {
         private const val DURATION = 300
     }
 
-    private val publishSubject: PublishSubject<Int>? = PublishSubject.create()
+    val publishSubject: PublishSubject<Int>? = PublishSubject.create()
+    val publishSubjectAlpha: PublishSubject<Float>? = PublishSubject.create()
     private var compositeSubscription: CompositeSubscription? = null
     private var screenWidth = 0
     private var yMultiplier = 0
-
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -63,7 +63,7 @@ class NewsStackLayout : FrameLayout {
 
     private fun setUpRxBusSubscription() {
         val rxBusSubscription: Subscription = RxBus.toObserverable()
-            .observeOn(AndroidSchedulers.mainThread()) // UI Thread
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Action1<Any> {
                 override fun call(event: Any?) {
                     if (event == null) {
@@ -73,22 +73,15 @@ class NewsStackLayout : FrameLayout {
                         val posX: Float = event.getPosX()
                         val childCount = childCount
                         for (i in childCount - 2 downTo 0) {
-                            val tinderCardView = getChildAt(i) as NewsCardView
+                            val newsCardView = getChildAt(i) as NewsCardView
                             if (abs(posX) == screenWidth.toFloat()) {
-                                val scaleValue = 1 - (childCount - 2 - i) / 50.0f
-                                tinderCardView.animate()
+                                newsCardView.animate()
                                     .x(0f)
                                     .y(((childCount - 2 - i) * yMultiplier).toFloat())
-                                    .scaleX(scaleValue)
                                     .rotation(0f)
                                     .setInterpolator(AnticipateOvershootInterpolator()).duration =
                                     DURATION.toLong()
                             }
-                            //else {
-//                                        float multiplier =  (DisplayUtility.dp2px(getContext(), 8)) / (float)screenWidth;
-//                                        float dy = -(Math.abs(posX * multiplier));
-//                                        tinderCard.setTranslationY(dy);
-                            //}
                         }
                     }
                 }
@@ -96,22 +89,19 @@ class NewsStackLayout : FrameLayout {
         compositeSubscription?.add(rxBusSubscription)
     }
 
-    fun getPublishSubject(): PublishSubject<Int>? {
-        return publishSubject
-    }
-
     fun addCard(tc: NewsCardView) {
         val layoutParams: ViewGroup.LayoutParams =
             ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
+                ViewGroup.LayoutParams.MATCH_PARENT)
         val childCount = childCount
         addView(tc, 0, layoutParams)
-        val scaleValue = 1 - childCount / 50.0f
         tc.animate()
             .x(0f)
             .y((childCount * yMultiplier).toFloat())
-            .scaleX(scaleValue)
             .setInterpolator(AnticipateOvershootInterpolator()).duration = DURATION.toLong()
     }
 
+    fun setAlphaBtn(alpha: Float){
+        publishSubjectAlpha?.onNext(alpha)
+    }
 }
